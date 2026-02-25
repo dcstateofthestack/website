@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+---
+
+<Layout>
+	<Nav currentPage="/conduct" />
+
+	<section class="py-20 px-4 bg-white flex-1 flex items-center">
+		<div class="max-w-4xl mx-auto text-center">
+			<h1 class="text-4xl font-bold mb-4 text-navy">Code of Conduct</h1>
+			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
+			<p class="text-gray-600 text-lg">DC State of the Stack is dedicated to providing a harassment-free conference experience for everyone. Our full code of conduct will be published here soon.</p>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>

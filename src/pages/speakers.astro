@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+---
+
+<Layout>
+	<Nav currentPage="/speakers" />
+
+	<section class="py-20 px-4 bg-white flex-1 flex items-center">
+		<div class="max-w-4xl mx-auto text-center">
+			<h1 class="text-4xl font-bold mb-4 text-navy">Speakers</h1>
+			<div class="w-16 h-1 bg-pink mx-auto mb-8"></div>
+			<p class="text-gray-600 text-lg">Coming soon. Our speaker lineup will be announced shortly.</p>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>

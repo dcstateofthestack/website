@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+	--color-navy: #1a2744;
+	--color-teal: #167D72;
+	--color-pink: #d4508b;
+	--color-light-pink: #f0a0c0;
+}
+
+body {
+	font-family: "Inter", system-ui, sans-serif;
+	color: var(--color-navy);
+}
