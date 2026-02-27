@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+---
+
+<Layout>
+	<Nav currentPage="/registration" />
+
+	<section class="py-20 px-4 bg-white flex-1 flex flex-col">
+		<div class="max-w-3xl mx-auto text-center">
+			<h1 class="text-4xl font-bold mb-4 text-navy">Registration</h1>
+			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
+			<p class="text-gray-500 text-lg mb-6">Registration is not yet open. Check back soon for details on tickets and pricing.</p>
+			<p class="text-gray-400">September 16-17, 2026 &middot; Washington, DC</p>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>

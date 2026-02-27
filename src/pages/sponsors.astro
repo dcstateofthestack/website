@@ -3,16 +3,75 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import "../styles/global.css";
+import { getCollection } from 'astro:content';
+
+const allSponsors = await getCollection('sponsors');
+
+const tiers = [
+	{ key: 'platinum', label: 'Platinum Sponsors' },
+	{ key: 'gold', label: 'Gold Sponsors' },
+	{ key: 'silver', label: 'Silver Sponsors' },
+	{ key: 'digital', label: 'Digital Sponsors' },
+	{ key: 'closed-caption', label: 'Closed Captioning Sponsor' },
+	{ key: 'lanyard', label: 'Lanyard Sponsor' },
+	{ key: 'breakfast', label: 'Breakfast Sponsors' },
+	{ key: 'lunch', label: 'Lunch Sponsors' },
+	{ key: 'break', label: 'Break Sponsors' },
+	{ key: 'social', label: 'Social Sponsors' },
+	{ key: 'community', label: 'Community Sponsors' },
+] as const;
 ---
 
 <Layout>
 	<Nav currentPage="/sponsors" />
 
-	<section class="py-20 px-4 bg-white flex-1 flex items-center">
-		<div class="max-w-4xl mx-auto text-center">
-			<h1 class="text-4xl font-bold mb-4 text-navy">Sponsors</h1>
-			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
-			<p class="text-gray-600 text-lg">Coming soon. Interested in sponsoring? <a href="/contact" class="text-teal underline hover:text-pink transition-colors">Get in touch</a>.</p>
+	<section class="py-16 px-4 bg-white flex-1">
+		<div class="max-w-5xl mx-auto">
+			<div class="text-center mb-12">
+				<h1 class="text-4xl font-bold mb-4 text-navy">Sponsors</h1>
+				<div class="w-16 h-1 bg-teal mx-auto mb-6"></div>
+				<p class="text-gray-500 text-lg max-w-2xl mx-auto">DC State of the Stack is made possible by the generous support of our sponsors. We're putting the final touches on our Sponsor Perspectus and hope to post it here soon! Interested in sponsoring? <a href="/contact" class="text-pink transition-colors not-italic font-medium">Get in Touch!</a></p>
+			</div>
+
+			<div class="space-y-12">
+				{tiers.map(({ key, label }) => {
+					const tierSponsors = allSponsors.filter(s => s.data.tier === key);
+
+					return (
+						<div>
+							<div class="flex items-center gap-3 mb-6 pb-2 border-b border-slate-400">
+								<h2 class="text-xl font-bold text-teal">{label}</h2>
+							</div>
+							{tierSponsors.length > 0 ? (
+								<div class={`grid gap-6 ${key === 'platinum' ? 'grid-cols-2 md:grid-cols-3' : key === 'gold' ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3 md:grid-cols-5'}`}>
+									{tierSponsors.map((sponsor) => (
+										<a
+											href={sponsor.data.url || '#'}
+											target="_blank"
+											rel="noopener"
+											class="bg-gray-50 border border-gray-100 rounded-xl p-6 flex items-center justify-center hover:border-teal hover:shadow-sm transition-all min-h-[100px]"
+										>
+											{sponsor.data.logo ? (
+												<img src={sponsor.data.logo.src} alt={sponsor.data.name} class="max-h-12 max-w-full object-contain" />
+											) : (
+												<span class="text-navy font-semibold text-center">{sponsor.data.name}</span>
+											)}
+										</a>
+									))}
+								</div>
+							) : (
+								<p class="text-gray-400">No Sponsor Yet</p>
+							)}
+						</div>
+					);
+				})}
+			</div>
+
+			<div class="mt-16 text-center bg-gray-50 rounded-2xl p-8 border border-gray-100">
+				<h2 class="text-2xl font-bold text-navy mb-3">Become a Sponsor</h2>
+				<p class="text-gray-500 mb-6">Interested in getting your brand in front of DC's top engineering talent?</p>
+				<a href="/contact" class="inline-block bg-teal text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal/90 transition-colors">Get in Touch</a>
+			</div>
 		</div>
 	</section>
 

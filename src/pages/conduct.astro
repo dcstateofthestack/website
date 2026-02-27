@@ -1,18 +1,116 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 ---
 
 <Layout>
 	<Nav currentPage="/conduct" />
 
-	<section class="py-20 px-4 bg-white flex-1 flex items-center">
-		<div class="max-w-4xl mx-auto text-center">
-			<h1 class="text-4xl font-bold mb-4 text-navy">Code of Conduct</h1>
-			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
-			<p class="text-gray-600 text-lg">DC State of the Stack is dedicated to providing a harassment-free conference experience for everyone. Our full code of conduct will be published here soon.</p>
+	<section class="py-16 px-4 bg-white flex-1">
+		<div class="max-w-3xl mx-auto">
+			<div class="text-center mb-12">
+				<h1 class="text-4xl font-bold mb-4 text-navy">
+					Code of Conduct
+				</h1>
+				<div class="w-16 h-1 bg-teal mx-auto"></div>
+			</div>
+
+			<div class="prose prose-lg max-w-none text-gray-600">
+				<p>
+					All attendees, speakers, sponsors, and volunteers at DC
+					State of the Stack are required to agree with the following
+					code of conduct. Organizers will enforce this code
+					throughout the event. We are expecting cooperation from all
+					participants to help ensure a safe environment for
+					everybody.
+				</p>
+
+				<h2 class="text-2xl font-bold text-navy mt-10 mb-4">
+					The Quick Version
+				</h2>
+				<p>
+					Our conference is dedicated to providing a harassment-free
+					conference experience for everyone, regardless of gender,
+					gender identity and expression, age, sexual orientation,
+					disability, physical appearance, body size, race, ethnicity,
+					religion (or lack thereof), or technology choices. We do not
+					tolerate harassment of conference participants in any form.
+					Sexual language and imagery is not appropriate for any
+					conference venue, including talks, workshops, parties,
+					Twitter, and other online media. Conference participants
+					violating these rules may be sanctioned or expelled from the
+					conference without a refund at the discretion of the
+					conference organizers.
+				</p>
+
+				<h2 class="text-2xl font-bold text-navy mt-10 mb-4">
+					The Less Quick Version
+				</h2>
+				<div class="flex flex-col space-y-3">
+					<p>
+						Harassment includes offensive verbal comments related to
+						gender, gender identity and expression, age, sexual
+						orientation, disability, physical appearance, body size,
+						race, ethnicity, religion, technology choices, sexual
+						images in public spaces, deliberate intimidation,
+						stalking, following, harassing photography or recording,
+						sustained disruption of talks or other events,
+						inappropriate physical contact, and unwelcome sexual
+						attention. Participants asked to stop any harassing
+						behavior are expected to comply immediately.
+					</p>
+
+					<p>
+						Sponsors are also subject to the anti-harassment policy.
+						In particular, sponsors should not use sexualized
+						images, activities, or other material. Booth staff
+						(including volunteers) should not use sexualized
+						clothing/uniforms/costumes, or otherwise create a
+						sexualized environment.
+					</p>
+
+					<p>
+						If a participant engages in harassing behavior, the
+						conference organizers may take any action they deem
+						appropriate, including warning the offender or expulsion
+						from the conference with no refund.
+					</p>
+
+					<p>
+						If you are being harassed, notice that someone else is
+						being harassed, or have any other concerns, please
+						contact a member of conference staff immediately.
+					</p>
+
+					<p>
+						Conference staff can be identified by distinct staff
+						badges. Conference staff will be happy to help
+						participants contact hotel/venue security or local law
+						enforcement, provide escorts, or otherwise assist those
+						experiencing harassment to feel safe for the duration of
+						the conference. We value your attendance.
+					</p>
+
+					<p>
+						We expect participants to follow these rules at
+						conference and workshop venues and conference-related
+						social events.
+					</p>
+				</div>
+				<p
+					class="text-sm text-gray-400 mt-10 border-t border-gray-200 pt-6"
+				>
+					The DC State of the Stack Code of Conduct is based on <a
+						href="https://confcodeofconduct.com"
+						target="_blank"
+						rel="noopener"
+						class="text-teal hover:text-pink transition-colors"
+						>confcodeofconduct.com</a
+					>.
+				</p>
+			</div>
 		</div>
 	</section>
 
