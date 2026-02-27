@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+---
+
+<Layout>
+	<Nav />
+
+	<section class="py-20 px-4 bg-white flex-1 flex flex-col items-center justify-center">
+		<div class="max-w-lg mx-auto text-center">
+			<h1 class="text-6xl font-bold text-teal mb-4">404</h1>
+			<p class="text-xl text-navy mb-6">Page not found</p>
+			<p class="text-gray-500 mb-8">The page you're looking for doesn't exist or has been moved.</p>
+			<a href="/" class="inline-block bg-teal text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal/90 transition-colors">Back to Home</a>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>
