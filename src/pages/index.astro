@@ -19,14 +19,8 @@ import logo from '../assets/logo-landscape.png';
 		</div>
 
 		<div class="relative z-10 max-w-4xl mx-auto px-6 pt-8 pb-10 text-center">
-			<!-- Badge -->
-			<div class="inline-flex items-center gap-2 bg-teal/10 border border-teal/20 rounded-full px-4 py-1.5 mb-6">
-				<span class="relative flex h-2 w-2">
-					<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75"></span>
-					<span class="relative inline-flex rounded-full h-2 w-2 bg-teal"></span>
-				</span>
-				<span class="text-navy/80 text-sm font-medium">Formerly DevOpsDays DC</span>
-			</div>
+			<!-- Origin label -->
+			<p class="text-sm text-gray-400 italic mb-6">Formerly DevOpsDays DC</p>
 
 			<!-- Logo -->
 			<img src={logo.src} alt="DC State of the Stack 2026 — Shipping Software in the Age of AI" class="mx-auto w-full mb-6" />
@@ -67,6 +61,11 @@ import logo from '../assets/logo-landscape.png';
               ))}
             </div>
           </div>
+
+		  <!-- Origin note -->
+		  <p class="mt-12 text-sm text-gray-400">
+			Brought to you by the same team that ran <span class="text-navy font-medium">DevOpsDays DC</span> for years. Same great community. Broader vision.
+		  </p>
 		</div>
 	</section>
 
