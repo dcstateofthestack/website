@@ -14,7 +14,7 @@ The CFP for DC State of the Stack 2026 is open (closes June 8, 2026). Embedding 
 
 1. **Page header** (existing) — "Speakers" title, pink divider, subtitle text
 2. **CFP section** (new) — heading, description with deadline, Sessionize iframe
-3. **Speaker grid** (existing) — speaker cards or "Stay tuned" fallback, unchanged
+3. **Speaker grid** (existing) — speaker cards when available; empty-state fallback updated from "Stay tuned for our Call for Proposals!" to "Speakers will be announced soon." to avoid redundancy with the CFP section above
 
 ### CFP Section Details
 
@@ -25,7 +25,9 @@ The CFP for DC State of the Stack 2026 is open (closes June 8, 2026). Embedding 
   - `width="100%"`, `height="800px"`
   - `loading="lazy"` for performance
   - `title="Sessionize Call for Speakers"` for accessibility
+  - `sandbox="allow-scripts allow-same-origin allow-forms allow-popups"` for security hardening
   - Styled: `rounded-2xl border border-gray-200` to match existing card aesthetic
+  - If content exceeds 800px, the iframe shows an internal scrollbar (acceptable)
 
 ### File Changes
 
@@ -37,3 +39,7 @@ The CFP for DC State of the Stack 2026 is open (closes June 8, 2026). Embedding 
 - No automatic show/hide based on CFP deadline (manual removal when CFP closes)
 - No JavaScript-based iframe resizing (fixed 800px height)
 - No changes to the speaker grid or content collection
+
+### Post-CFP Cleanup
+
+When the CFP closes (after June 8, 2026), remove the CFP section from `speakers.astro` and update the fallback text as appropriate.
