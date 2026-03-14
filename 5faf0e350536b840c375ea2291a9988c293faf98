@@ -1,0 +1,23 @@
+docs/superpowers/specs/2026-03-14-sessionize-cfp-embed-design.md
+  bf05ff85c5a2c990 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "5faf0e350536b840c375ea2291a9988c293faf98",
+  "prompts": {
+    "bf05ff85c5a2c990": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "16ce8329-0270-40a1-a18c-c76d4813fdeb",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "David Hodge <david.hodge@lucidtechnics.com>",
+      "messages": [],
+      "total_additions": 39,
+      "total_deletions": 0,
+      "accepted_lines": 39,
+      "overriden_lines": 0
+    }
+  }
+}
