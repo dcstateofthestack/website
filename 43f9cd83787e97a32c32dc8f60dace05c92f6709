@@ -1,0 +1,23 @@
+src/pages/speakers.astro
+  bf05ff85c5a2c990 23-36,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "43f9cd83787e97a32c32dc8f60dace05c92f6709",
+  "prompts": {
+    "bf05ff85c5a2c990": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "16ce8329-0270-40a1-a18c-c76d4813fdeb",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "David Hodge <david.hodge@lucidtechnics.com>",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 1,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}
