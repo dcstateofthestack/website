@@ -7,14 +7,28 @@ import "../styles/global.css";
 ---
 
 <Layout>
+	<Fragment slot="head">
+		<link rel="stylesheet" type="text/css" href="https://pretix.eu/dcstateofthestack/2026/widget/v2.css" crossorigin>
+		<script type="text/javascript" src="https://pretix.eu/widget/v2.en.js" async crossorigin></script>
+	</Fragment>
+
 	<Nav currentPage="/registration" />
 
 	<section class="py-20 px-4 bg-white flex-1 flex flex-col">
-		<div class="max-w-3xl mx-auto text-center">
+		<div class="max-w-3xl mx-auto text-center mb-8">
 			<h1 class="text-4xl font-bold mb-4 text-navy">Registration</h1>
 			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
-			<p class="text-gray-500 text-lg mb-6">Registration is not yet open. Check back soon for details on tickets and pricing.</p>
 			<p class="text-gray-400">September 16-17, 2026 &middot; Washington, DC</p>
+		</div>
+		<div class="max-w-7xl mx-auto w-full">
+			<pretix-widget event="https://pretix.eu/dcstateofthestack/2026/"></pretix-widget>
+			<noscript>
+				<div class="pretix-widget">
+					<div class="pretix-widget-info-message">
+						JavaScript is disabled in your browser. To access our ticket shop without JavaScript, please <a target="_blank" rel="noopener" href="https://pretix.eu/dcstateofthestack/2026/">click here</a>.
+					</div>
+				</div>
+			</noscript>
 		</div>
 	</section>
 
