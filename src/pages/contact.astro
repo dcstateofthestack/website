@@ -7,8 +7,8 @@ import "../styles/global.css";
 import { getCollection } from 'astro:content';
 
 const allOrganizers = await getCollection('organizers');
-const chairs = allOrganizers.filter(o => o.data.role === 'Co-Chair');
-const organizers = allOrganizers.filter(o => o.data.role !== 'Co-Chair');
+const chairs = allOrganizers.filter(o => o.data.role === 'co-chair');
+const organizers = allOrganizers.filter(o => o.data.role !== 'organizer');
 
 const socialIcons: Record<string, string> = {
 	twitter: `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
