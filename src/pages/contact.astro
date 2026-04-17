@@ -8,7 +8,7 @@ import { getCollection } from 'astro:content';
 
 const allOrganizers = await getCollection('organizers');
 const chairs = allOrganizers.filter(o => o.data.role === 'co-chair');
-const organizers = allOrganizers.filter(o => o.data.role !== 'organizer');
+const organizers = allOrganizers.filter(o => o.data.role === 'organizer');
 
 const socialIcons: Record<string, string> = {
 	twitter: `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
@@ -33,33 +33,35 @@ const socialIcons: Record<string, string> = {
 			{chairs.length > 0 && (
 				<div class="mb-12">
 					<h2 class="text-xl font-bold text-navy mb-6 flex items-center gap-3">
-						<div class="w-3 h-3 rounded-full bg-teal"></div>
-						Co-Chairs
+						Our Co-Chairs
 					</h2>
 					<div class="grid md:grid-cols-2 gap-6">
 						{chairs.map((person) => (
-							<div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex gap-5">
-								<div class="w-16 h-16 bg-teal/10 rounded-full flex-shrink-0 flex items-center justify-center">
-									{person.data.photo ? (
-										<img src={person.data.photo.src} alt={person.data.name} class="w-16 h-16 rounded-full object-cover" />
-									) : (
-										<span class="text-teal text-xl font-bold">
-											{person.data.name.split(' ').map((n: string) => n[0]).join('')}
-										</span>
-									)}
-								</div>
-								<div class="flex-1 min-w-0">
-									<h3 class="text-lg font-bold text-navy">{person.data.name}</h3>
-									{person.data.company && <p class="text-sm text-teal mb-1">{person.data.company}</p>}
-									{person.data.bio && <p class="text-sm text-gray-500 mb-3 leading-relaxed">{person.data.bio}</p>}
-									{person.data.socialLinks && person.data.socialLinks.length > 0 && (
-										<div class="flex gap-3">
-											{person.data.socialLinks.map((link) => (
-												<a href={link.url} target="_blank" rel="noopener" class="text-gray-400 hover:text-teal transition-colors" set:html={socialIcons[link.platform]} />
-											))}
-										</div>
-									)}
-								</div>
+							<div class="flex flex-col items-center space-y-3">
+									<div class="size-64 bg-pink/10 rounded-full flex-shrink-0 flex items-center justify-center">
+										{person.data.photo ? (
+											<img src={person.data.photo.src} alt={person.data.name} class="w-full h-full rounded-full object-cover" />
+										) : (
+											<span class="text-pink text-sm font-bold">
+												{person.data.name.split(' ').map((n: string) => n[0]).join('')}
+											</span>
+										)}
+									</div>
+									<div>
+										<h3 class="font-semibold text-navy text-xl">{person.data.name}</h3>
+										{person.data.company && <p class="text-xs text-gray-400">{person.data.company}</p>}
+									</div>
+									<div class="rounded border border-gray-100 bg-gray-50 p-5">
+										{person.data.bio && <p class="text-sm text-gray-500 mb-3 leading-relaxed">{person.data.bio}</p>}
+									</div>
+								
+								{person.data.socialLinks && person.data.socialLinks.length > 0 && (
+									<div class="flex gap-3">
+										{person.data.socialLinks.map((link) => (
+											<a href={link.url} target="_blank" rel="noopener" class="text-gray-400 hover:text-teal transition-colors" set:html={socialIcons[link.platform]} />
+										))}
+									</div>
+								)}
 							</div>
 						))}
 					</div>
@@ -69,16 +71,14 @@ const socialIcons: Record<string, string> = {
 			{organizers.length > 0 && (
 				<div>
 					<h2 class="text-xl font-bold text-navy mb-6 flex items-center gap-3">
-						<div class="w-3 h-3 rounded-full bg-pink"></div>
-						Organizers
+						Our Organizers
 					</h2>
-					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+					<div class="grid md:grid-cols-2 gap-6">
 						{organizers.map((person) => (
-							<div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-								<div class="flex items-center gap-3 mb-3">
-									<div class="w-10 h-10 bg-pink/10 rounded-full flex-shrink-0 flex items-center justify-center">
+							<div class="flex flex-col items-center space-y-3">
+									<div class="size-64 bg-pink/10 rounded-full flex-shrink-0 flex items-center justify-center">
 										{person.data.photo ? (
-											<img src={person.data.photo.src} alt={person.data.name} class="w-10 h-10 rounded-full object-cover" />
+											<img src={person.data.photo.src} alt={person.data.name} class="w-full h-full rounded-full object-cover" />
 										) : (
 											<span class="text-pink text-sm font-bold">
 												{person.data.name.split(' ').map((n: string) => n[0]).join('')}
@@ -86,11 +86,13 @@ const socialIcons: Record<string, string> = {
 										)}
 									</div>
 									<div>
-										<h3 class="font-semibold text-navy">{person.data.name}</h3>
+										<h3 class="font-semibold text-navy text-xl">{person.data.name}</h3>
 										{person.data.company && <p class="text-xs text-gray-400">{person.data.company}</p>}
 									</div>
-								</div>
-								{person.data.bio && <p class="text-sm text-gray-500 mb-3 leading-relaxed">{person.data.bio}</p>}
+									<div class="rounded border border-gray-100 bg-gray-50 p-5">
+										{person.data.bio && <p class="text-sm text-gray-500 mb-3 leading-relaxed">{person.data.bio}</p>}
+									</div>
+								
 								{person.data.socialLinks && person.data.socialLinks.length > 0 && (
 									<div class="flex gap-3">
 										{person.data.socialLinks.map((link) => (
