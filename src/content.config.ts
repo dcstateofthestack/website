@@ -1,13 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const posts = defineCollection({
-  loader: glob({ pattern: '**/*.mdoc', base: './src/content/posts' }),
-  schema: z.object({
-    title: z.string(),
-  }),
-});
-
 const speakers = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/speakers' }),
   schema: ({ image }) =>
@@ -36,7 +29,7 @@ const organizers = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      role: z.string().optional(),
+      role: z.enum(['organizer','chair','co-chair']),
       company: z.string().optional(),
       bio: z.string().optional(),
       photo: image().optional(),
@@ -49,4 +42,4 @@ const organizers = defineCollection({
     }),
 });
 
-export const collections = { posts, speakers, sponsors, organizers };
+export const collections = { speakers, sponsors, organizers };
