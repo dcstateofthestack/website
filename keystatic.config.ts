@@ -56,7 +56,14 @@ export default config({
       path: 'src/content/organizers/*',
       schema: {
         name: fields.slug({ name: { label: 'Name' } }),
-        role: fields.text({ label: 'Role' }),
+        role: fields.select({
+          label: 'Role',
+          options: [
+            { label: 'Co-Chair', value: 'co-chair' },
+            { label: 'Organizer', value: 'organizer' }
+          ],
+          defaultValue: 'organizer',
+        }),
         company: fields.text({ label: 'Company' }),
         bio: fields.text({ label: 'Bio', multiline: true }),
         photo: fields.image({
