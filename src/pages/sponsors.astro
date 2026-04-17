@@ -286,10 +286,10 @@ const tierBenefits = [
 												href={sponsor.data.url || '#'}
 												target="_blank"
 												rel="noopener"
-												class="bg-gray-50 border border-gray-100 rounded-xl p-6 flex items-center justify-center hover:border-teal hover:shadow-sm transition-all min-h-[100px]"
+												class="bg-gray-50 border border-gray-100 rounded-xl p-6 flex items-center justify-center hover:border-teal hover:shadow-sm transition-all h-[200px] max-h-[200px]"
 											>
 												{sponsor.data.logo ? (
-													<img src={sponsor.data.logo.src} alt={sponsor.data.name} class="max-h-12 max-w-full object-contain" />
+													<img src={sponsor.data.logo.src} alt={sponsor.data.name} class="h-full max-w-full object-contain" />
 												) : (
 													<span class="text-navy font-semibold text-center">{sponsor.data.name}</span>
 												)}
