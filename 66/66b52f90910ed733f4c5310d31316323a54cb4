@@ -1,0 +1,29 @@
+src/pages/speakers.astro
+  h_d35108d672be4d 25
+  eee011dc875ff7b0 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "6666b52f90910ed733f4c5310d31316323a54cb4",
+  "prompts": {
+    "eee011dc875ff7b0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c9ec8547-4659-4b16-8d48-494daa46d5ba",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "David Hodge",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 1
+    }
+  },
+  "humans": {
+    "h_d35108d672be4d": {
+      "author": "David Hodge"
+    }
+  }
+}
