@@ -51,6 +51,20 @@ export default config({
         }),
       },
     }),
+    eventsWeLove: collection({
+      label: 'Events We Love',
+      slugField: 'name',
+      path: 'src/content/events-we-love/*',
+      schema: {
+        name: fields.slug({ name: { label: 'Name' } }),
+        url: fields.url({ label: 'Website URL' }),
+        logo: fields.image({
+          label: 'Logo',
+          directory: 'src/assets/events-we-love',
+          publicPath: '/src/assets/events-we-love/',
+        }),
+      },
+    }),
     organizers: collection({
       label: 'Organizers',
       slugField: 'name',

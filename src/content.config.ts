@@ -43,4 +43,14 @@ const organizers = defineCollection({
     }),
 });
 
-export const collections = { speakers, sponsors, organizers };
+const eventsWeLove = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/events-we-love' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      url: z.string().optional(),
+      logo: image().optional(),
+    }),
+});
+
+export const collections = { speakers, sponsors, organizers, eventsWeLove };
