@@ -75,7 +75,8 @@ export default config({
           label: 'Role',
           options: [
             { label: 'Co-Chair', value: 'co-chair' },
-            { label: 'Organizer', value: 'organizer' }
+            { label: 'Organizer', value: 'organizer' },
+            { label: 'Mascot', value: 'mascot' },
           ],
           defaultValue: 'organizer',
         }),
