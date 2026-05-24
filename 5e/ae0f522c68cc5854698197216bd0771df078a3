@@ -1,0 +1,19 @@
+netlify.toml
+  s_852bde03ddf9d1::t_1d206ea4f816b6 4-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "5eae0f522c68cc5854698197216bd0771df078a3",
+  "prompts": {},
+  "sessions": {
+    "s_852bde03ddf9d1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4bebf5e1-d99e-483d-9f5f-4993353e2215",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
