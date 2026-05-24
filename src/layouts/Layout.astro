@@ -1,3 +1,6 @@
+---
+import Analytics from "../components/Analytics.astro";
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -21,6 +24,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		<Analytics />
 		<slot name="head" />
 	</head>
 	<body class="flex flex-col" style="min-height: 100vh;">
