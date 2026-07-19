@@ -4,9 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import "../styles/global.css";
-import { getCollection } from 'astro:content';
-
-const speakers = (await getCollection('speakers')).filter((s) => !s.data.keynote);
 ---
 
 <Layout>
@@ -20,60 +17,10 @@ const speakers = (await getCollection('speakers')).filter((s) => !s.data.keynote
 				<p class="text-gray-500 text-lg max-w-2xl mx-auto">Meet the practitioners and leaders sharing what they've learned shipping software in the age of AI.</p>
 			</div>
 
-			<div class="mb-12 bg-gray-50 rounded-2xl p-8 border border-gray-100">
-				<h2 class="text-2xl font-bold text-navy mb-2">Call for Speakers</h2>
-				<p class="text-gray-500 mb-4">We're looking for grounded, experience-based talks across the full stack — platform engineering, security, cloud native, DevOps, data, developer experience, product delivery, leadership, compliance, people, and yes, AI. AI is part of the conversation, not the whole conversation. If you've shipped it and learned from it, we want to hear about it.</p>
-				<p class="text-gray-500 mb-6">Not sure what kind of talk lands here? <a href="https://www.youtube.com/@DCStateOfTheStack" target="_blank" rel="noopener noreferrer" class="text-teal underline hover:text-teal/80">Watch sessions from past conferences</a> to get a feel for the room.</p>
-
-				<div class="grid md:grid-cols-2 gap-6 mb-6">
-					<div>
-						<h3 class="text-sm font-semibold text-navy uppercase tracking-wide mb-2">Talk Formats</h3>
-						<ul class="text-gray-500 text-sm space-y-1">
-							<li>30-minute traditional talks</li>
-							<li>5-minute Ignite presentations</li>
-						</ul>
-					</div>
-					<div>
-						<h3 class="text-sm font-semibold text-navy uppercase tracking-wide mb-2">Key Dates</h3>
-						<ul class="text-gray-500 text-sm space-y-1">
-							<li>CFP closes: June 8, 2026</li>
-							<li>Decisions announced: July 20, 2026</li>
-							<li>Conference: September 16–17, 2026</li>
-						</ul>
-					</div>
-				</div>
-
-				<a
-					href="https://sessionize.com/dc-stateofthestack-2026/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-block bg-teal text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal/90 transition-colors"
-				>Submit a Talk Proposal</a>
-			</div>
-
-			{speakers.length > 0 ? (
-				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{speakers.map((speaker) => (
-						<div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-							<div class="w-20 h-20 bg-teal/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-								{speaker.data.photo ? (
-									<img src={speaker.data.photo.src} alt={speaker.data.name} class="w-20 h-20 rounded-full object-cover" />
-								) : (
-									<span class="text-teal text-2xl font-bold">
-										{speaker.data.name.split(' ').map((n: string) => n[0]).join('')}
-									</span>
-								)}
-							</div>
-							<h3 class="text-lg font-bold text-navy text-center mb-1">{speaker.data.name}</h3>
-							<p class="text-sm text-teal text-center mb-3">{speaker.data.title}</p>
-							<p class="text-sm text-pink font-semibold text-center mb-3">"{speaker.data.talkName}"</p>
-							<p class="text-sm text-gray-500 text-center leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={speaker.data.bio}></p>
-						</div>
-					))}
-				</div>
-			) : (
-				<p class="text-gray-500 text-lg text-center">Speakers will be announced soon.</p>
-			)}
+			<script is:inline type="text/javascript" src="https://sessionize.com/api/v2/j6w4txnf/view/SpeakerWall"></script>
+			<noscript>
+				<p class="text-gray-500 text-lg text-center">Enable JavaScript to view the speakers.</p>
+			</noscript>
 		</div>
 	</section>
 
