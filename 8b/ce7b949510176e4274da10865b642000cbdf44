@@ -1,0 +1,21 @@
+src/pages/speakers.astro
+  s_877ef7fdebf246::t_3693505cc29752 20-23
+src/pages/program.astro
+  s_877ef7fdebf246::t_ddacf832d00e48 47-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "8bce7b949510176e4274da10865b642000cbdf44",
+  "prompts": {},
+  "sessions": {
+    "s_877ef7fdebf246": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90a68ec6-aa38-452b-8eb6-f47abef7b302",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
