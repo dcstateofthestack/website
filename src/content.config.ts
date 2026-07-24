@@ -48,6 +48,9 @@ const eventsWeLove = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
+      description: z.string().optional(),
+      date: z.coerce.date().optional(),
+      location: z.string().optional(),
       url: z.string().optional(),
       logo: image().optional(),
     }),

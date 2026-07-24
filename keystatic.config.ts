@@ -57,6 +57,9 @@ export default config({
       path: 'src/content/events-we-love/*',
       schema: {
         name: fields.slug({ name: { label: 'Name' } }),
+        description: fields.text({ label: 'Description', multiline: true }),
+        date: fields.date({ label: 'Date' }),
+        location: fields.text({ label: 'Location' }),
         url: fields.url({ label: 'Website URL' }),
         logo: fields.image({
           label: 'Logo',
