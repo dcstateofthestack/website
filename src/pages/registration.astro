@@ -3,6 +3,7 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import BloodDriveCTA from '../components/BloodDriveCTA.astro';
 import "../styles/global.css";
 ---
 
@@ -20,28 +21,7 @@ import "../styles/global.css";
 			<div class="w-16 h-1 bg-teal mx-auto mb-8"></div>
 			<p class="text-gray-400">September 16-17, 2026 &middot; Washington, DC</p>
 		</div>
-		<!-- Give blood -->
-		<div class="max-w-4xl mx-auto w-full mb-12">
-			<div class="bg-red-50 border border-red-100 rounded-xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-				<svg class="w-10 h-10 shrink-0 text-red-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-					<path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7V2z" />
-				</svg>
-				<div class="flex-1">
-					<h2 class="text-lg font-bold text-navy mb-1">Give blood during the conference</h2>
-					<p class="text-gray-700 text-sm leading-relaxed">
-						Book an American Red Cross donation appointment onsite at the Dr. Charles Drew Blood Donation Center and give around your sessions.
-					</p>
-				</div>
-				<a
-					href="https://www.redcrossblood.org/give.html/drive-results?city=Washington&dt=WB:PL:DR:PM&ed=09%2F17%2F2026&order=DATE&range=10&sd=09%2F15%2F2026&state=DC&zipSponsor="
-					target="_blank"
-					rel="noopener"
-					class="shrink-0 bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-red-700 transition-colors"
-				>
-					Find a blood drive
-				</a>
-			</div>
-		</div>
+		<BloodDriveCTA />
 
 		<div class="max-w-7xl mx-auto w-full">
 			<pretix-widget event="https://pretix.eu/dcstateofthestack/2026/"></pretix-widget>
