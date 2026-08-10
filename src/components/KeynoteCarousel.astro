@@ -23,6 +23,7 @@ const { keynotes } = Astro.props;
 					aria-roledescription="slide"
 					aria-label={`${i + 1} of ${keynotes.length}`}
 					aria-hidden={i === 0 ? undefined : 'true'}
+					inert={i === 0 ? undefined : true}
 					data-slide={i}
 					class:list={[
 						'col-start-1 row-start-1 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 text-left shadow-sm transition-opacity duration-500 motion-reduce:transition-none',
@@ -76,10 +77,12 @@ const { keynotes } = Astro.props;
 		function show(i: number) {
 			slides[current].classList.add('opacity-0', 'pointer-events-none');
 			slides[current].setAttribute('aria-hidden', 'true');
+			slides[current].inert = true;
 			dots[current].removeAttribute('aria-current');
 			current = i;
 			slides[current].classList.remove('opacity-0', 'pointer-events-none');
 			slides[current].removeAttribute('aria-hidden');
+			slides[current].inert = false;
 			dots[current].setAttribute('aria-current', 'true');
 		}
 
