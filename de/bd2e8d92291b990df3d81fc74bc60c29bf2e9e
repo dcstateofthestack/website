@@ -1,0 +1,19 @@
+src/components/KeynoteCarousel.astro
+  s_154bf0f547d07e::t_7158b2bb9da95d 131-138,144-145,147-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "debd2e8d92291b990df3d81fc74bc60c29bf2e9e",
+  "prompts": {},
+  "sessions": {
+    "s_154bf0f547d07e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1cde241b-0e0a-4383-8d38-ad51727610aa",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
