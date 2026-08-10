@@ -1,0 +1,27 @@
+src/content/speakers/max-kanat-alexander.yaml
+  s_154bf0f547d07e::t_b1995e3530fff6 19
+src/content.config.ts
+  s_154bf0f547d07e::t_cfa68594b1e74c 14
+keystatic.config.ts
+  s_154bf0f547d07e::t_c284a3c19544b0 21-24
+src/content/speakers/noble-ackerson.yaml
+  s_154bf0f547d07e::t_9442425a094b80 17
+src/lib/keynotes.ts
+  s_154bf0f547d07e::t_1e93d746a6f133 5-8,14-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8e7fd4740f6206c269df07039391dff38651605a",
+  "prompts": {},
+  "sessions": {
+    "s_154bf0f547d07e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1cde241b-0e0a-4383-8d38-ad51727610aa",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
