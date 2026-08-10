@@ -1,0 +1,23 @@
+src/content/speakers/bodhisattva-das.yaml
+  s_154bf0f547d07e::t_bc81b6e7522644 1-14
+src/content/speakers/rajaniesh-kaushikk.yaml
+  s_154bf0f547d07e::t_dfc275b017cc3a 1-21
+src/content/speakers/noble-ackerson.yaml
+  s_154bf0f547d07e::t_d0994699af6e0c 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "bd66a98ecc50971a8be8f604e19a37465b4d46ca",
+  "prompts": {},
+  "sessions": {
+    "s_154bf0f547d07e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1cde241b-0e0a-4383-8d38-ad51727610aa",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
