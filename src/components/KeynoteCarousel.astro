@@ -1,0 +1,134 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	keynotes: CollectionEntry<'speakers'>[];
+}
+
+const { keynotes } = Astro.props;
+---
+
+{keynotes.length > 0 && (
+	<div
+		id="keynote-carousel"
+		role="region"
+		aria-roledescription="carousel"
+		aria-label="Keynote speakers"
+		class="max-w-2xl mx-auto mb-10"
+	>
+		<div class="grid">
+			{keynotes.map((keynote, i) => (
+				<div
+					role="group"
+					aria-roledescription="slide"
+					aria-label={`${i + 1} of ${keynotes.length}`}
+					aria-hidden={i === 0 ? undefined : 'true'}
+					data-slide={i}
+					class:list={[
+						'col-start-1 row-start-1 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 text-left shadow-sm transition-opacity duration-500 motion-reduce:transition-none',
+						i === 0 ? '' : 'opacity-0 pointer-events-none',
+					]}
+				>
+					<p class="text-pink font-bold text-xs uppercase tracking-[0.2em] mb-5">Keynote</p>
+					<div class="flex flex-col sm:flex-row gap-6 items-start">
+						{keynote.data.photo && (
+							<img src={keynote.data.photo.src} alt={keynote.data.name} class="w-32 h-32 rounded-full object-cover flex-shrink-0 mx-auto sm:mx-0" />
+						)}
+						<div class="flex-1">
+							<h3 class="text-2xl font-bold text-navy mb-1">{keynote.data.name}</h3>
+							<p class="text-teal text-sm font-medium mb-3">{keynote.data.title}</p>
+							<p class="text-navy font-semibold mb-3">"{keynote.data.talkName}"</p>
+							<p class="text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+		{keynotes.length > 1 && (
+			<div class="flex justify-center gap-2 mt-4">
+				{keynotes.map((keynote, i) => (
+					<button
+						type="button"
+						data-dot={i}
+						aria-label={`Show ${keynote.data.name}`}
+						aria-current={i === 0 ? 'true' : undefined}
+						class="w-2.5 h-2.5 rounded-full transition-colors bg-gray-300 hover:bg-gray-400 aria-[current=true]:bg-pink"
+					></button>
+				))}
+			</div>
+		)}
+	</div>
+)}
+
+<script>
+	const carousel = document.getElementById('keynote-carousel');
+	const slides = carousel ? [...carousel.querySelectorAll<HTMLElement>('[data-slide]')] : [];
+	const dots = carousel ? [...carousel.querySelectorAll<HTMLElement>('[data-dot]')] : [];
+
+	if (carousel && slides.length > 1) {
+		const INTERVAL = 6000;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let current = 0;
+		let timer: number | undefined;
+		let hovered = false;
+		let focused = false;
+
+		function show(i: number) {
+			slides[current].classList.add('opacity-0', 'pointer-events-none');
+			slides[current].setAttribute('aria-hidden', 'true');
+			dots[current].removeAttribute('aria-current');
+			current = i;
+			slides[current].classList.remove('opacity-0', 'pointer-events-none');
+			slides[current].removeAttribute('aria-hidden');
+			dots[current].setAttribute('aria-current', 'true');
+		}
+
+		function stop() {
+			if (timer !== undefined) {
+				clearInterval(timer);
+				timer = undefined;
+			}
+		}
+
+		function maybeStart() {
+			if (timer !== undefined || hovered || focused || document.hidden || reducedMotion.matches) return;
+			timer = window.setInterval(() => show((current + 1) % slides.length), INTERVAL);
+		}
+
+		dots.forEach((dot, i) =>
+			dot.addEventListener('click', () => {
+				show(i);
+				stop();
+				maybeStart();
+			}),
+		);
+		carousel.addEventListener('mouseenter', () => {
+			hovered = true;
+			stop();
+		});
+		carousel.addEventListener('mouseleave', () => {
+			hovered = false;
+			maybeStart();
+		});
+		carousel.addEventListener('focusin', () => {
+			focused = true;
+			stop();
+		});
+		carousel.addEventListener('focusout', (e) => {
+			if (!carousel.contains(e.relatedTarget as Node)) {
+				focused = false;
+				maybeStart();
+			}
+		});
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) stop();
+			else maybeStart();
+		});
+		reducedMotion.addEventListener('change', () => {
+			if (reducedMotion.matches) stop();
+			else maybeStart();
+		});
+
+		maybeStart();
+	}
+</script>
