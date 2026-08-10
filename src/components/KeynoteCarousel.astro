@@ -18,7 +18,7 @@ const { keynotes } = Astro.props;
 		aria-label="Keynote speakers"
 		class="max-w-2xl mx-auto mb-10"
 	>
-		<div class="grid" aria-live="off" data-live>
+		<div class="grid transition-[height] duration-500 motion-reduce:transition-none overflow-hidden" aria-live="off" data-live>
 			{keynotes.map((keynote, i) => (
 				<div
 					role="group"
@@ -28,7 +28,7 @@ const { keynotes } = Astro.props;
 					inert={i === 0 ? undefined : true}
 					data-slide={i}
 					class:list={[
-						'col-start-1 row-start-1 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 text-left shadow-sm transition-opacity duration-500 motion-reduce:transition-none',
+						'col-start-1 row-start-1 self-start bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 text-left shadow-sm transition-opacity duration-500 motion-reduce:transition-none',
 						i === 0 ? '' : 'opacity-0 pointer-events-none',
 					]}
 				>
@@ -104,6 +104,14 @@ const { keynotes } = Astro.props;
 		let focused = false;
 		let paused = false;
 
+		// Slides self-start instead of stretching, so a short bio leaves no
+		// white space inside its card; the wrapper's height follows the
+		// active slide (animated alongside the crossfade, clipping the
+		// taller invisible slides via overflow-hidden).
+		function setHeight() {
+			if (liveRegion) liveRegion.style.height = `${slides[current].offsetHeight}px`;
+		}
+
 		function show(i: number) {
 			slides[current].classList.add('opacity-0', 'pointer-events-none');
 			slides[current].setAttribute('aria-hidden', 'true');
@@ -114,6 +122,7 @@ const { keynotes } = Astro.props;
 			slides[current].removeAttribute('aria-hidden');
 			slides[current].inert = false;
 			dots[current].setAttribute('aria-current', 'true');
+			setHeight();
 		}
 
 		function stop() {
@@ -191,7 +200,11 @@ const { keynotes } = Astro.props;
 			syncPersistentState();
 		});
 
+		window.addEventListener('resize', setHeight);
+		window.addEventListener('load', setHeight);
+
 		syncPersistentState();
+		setHeight();
 		maybeStart();
 	}
 </script>
