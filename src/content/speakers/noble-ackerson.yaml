@@ -14,3 +14,4 @@ bio: >-
 talkName: 'Shipping Software When Half Your Stack Is Probabilistic'
 photo: /src/assets/speakers/noble-ackerson/photo.jpg
 keynote: true
+order: 2
