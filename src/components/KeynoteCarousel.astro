@@ -8,6 +8,8 @@ interface Props {
 const { keynotes } = Astro.props;
 ---
 
+<!-- Single-instance per page: the script below looks up this carousel via
+     getElementById, so only render one KeynoteCarousel per page. -->
 {keynotes.length > 0 && (
 	<div
 		id="keynote-carousel"
@@ -16,7 +18,7 @@ const { keynotes } = Astro.props;
 		aria-label="Keynote speakers"
 		class="max-w-2xl mx-auto mb-10"
 	>
-		<div class="grid">
+		<div class="grid" aria-live="off" data-live>
 			{keynotes.map((keynote, i) => (
 				<div
 					role="group"
@@ -33,12 +35,19 @@ const { keynotes } = Astro.props;
 					<p class="text-pink font-bold text-xs uppercase tracking-[0.2em] mb-5">Keynote</p>
 					<div class="flex flex-col sm:flex-row gap-6 items-start">
 						{keynote.data.photo && (
-							<img src={keynote.data.photo.src} alt={keynote.data.name} class="w-32 h-32 rounded-full object-cover flex-shrink-0 mx-auto sm:mx-0" />
+							<img
+								src={keynote.data.photo.src}
+								width={keynote.data.photo.width}
+								height={keynote.data.photo.height}
+								alt={keynote.data.name}
+								class="w-32 h-32 rounded-full object-cover flex-shrink-0 mx-auto sm:mx-0"
+							/>
 						)}
 						<div class="flex-1">
 							<h3 class="text-2xl font-bold text-navy mb-1">{keynote.data.name}</h3>
 							<p class="text-teal text-sm font-medium mb-3">{keynote.data.title}</p>
 							<p class="text-navy font-semibold mb-3">"{keynote.data.talkName}"</p>
+							{/* Renders raw HTML from the speaker's bio field in the content collection YAML. */}
 							<p class="text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
 						</div>
 					</div>
@@ -46,16 +55,32 @@ const { keynotes } = Astro.props;
 			))}
 		</div>
 		{keynotes.length > 1 && (
-			<div class="flex justify-center gap-2 mt-4">
-				{keynotes.map((keynote, i) => (
-					<button
-						type="button"
-						data-dot={i}
-						aria-label={`Show ${keynote.data.name}`}
-						aria-current={i === 0 ? 'true' : undefined}
-						class="w-2.5 h-2.5 rounded-full transition-colors bg-gray-300 hover:bg-gray-400 aria-[current=true]:bg-pink"
-					></button>
-				))}
+			<div class="flex items-center justify-center gap-3 mt-4">
+				<div class="flex gap-2">
+					{keynotes.map((keynote, i) => (
+						<button
+							type="button"
+							data-dot={i}
+							aria-label={`Show ${keynote.data.name}`}
+							aria-current={i === 0 ? 'true' : undefined}
+							class="w-2.5 h-2.5 rounded-full transition-colors bg-gray-300 hover:bg-gray-400 aria-[current=true]:bg-pink"
+						></button>
+					))}
+				</div>
+				<button
+					type="button"
+					data-pause
+					aria-label="Pause automatic rotation"
+					class="w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-pink hover:bg-gray-100 transition-colors"
+				>
+					<svg data-icon-pause xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="10" height="10" fill="currentColor" aria-hidden="true">
+						<rect x="2" y="1" width="4" height="14" rx="1"></rect>
+						<rect x="10" y="1" width="4" height="14" rx="1"></rect>
+					</svg>
+					<svg data-icon-play xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="10" height="10" fill="currentColor" aria-hidden="true" class="hidden">
+						<path d="M3 1.5v13l11-6.5-11-6.5z"></path>
+					</svg>
+				</button>
 			</div>
 		)}
 	</div>
@@ -65,6 +90,10 @@ const { keynotes } = Astro.props;
 	const carousel = document.getElementById('keynote-carousel');
 	const slides = carousel ? [...carousel.querySelectorAll<HTMLElement>('[data-slide]')] : [];
 	const dots = carousel ? [...carousel.querySelectorAll<HTMLElement>('[data-dot]')] : [];
+	const liveRegion = carousel?.querySelector<HTMLElement>('[data-live]') ?? null;
+	const pauseButton = carousel?.querySelector<HTMLButtonElement>('[data-pause]') ?? null;
+	const pauseIcon = pauseButton?.querySelector<HTMLElement>('[data-icon-pause]') ?? null;
+	const playIcon = pauseButton?.querySelector<HTMLElement>('[data-icon-play]') ?? null;
 
 	if (carousel && slides.length > 1) {
 		const INTERVAL = 6000;
@@ -73,6 +102,7 @@ const { keynotes } = Astro.props;
 		let timer: number | undefined;
 		let hovered = false;
 		let focused = false;
+		let paused = false;
 
 		function show(i: number) {
 			slides[current].classList.add('opacity-0', 'pointer-events-none');
@@ -94,8 +124,24 @@ const { keynotes } = Astro.props;
 		}
 
 		function maybeStart() {
-			if (timer !== undefined || hovered || focused || document.hidden || reducedMotion.matches) return;
+			if (timer !== undefined || hovered || focused || paused || document.hidden || reducedMotion.matches) return;
 			timer = window.setInterval(() => show((current + 1) % slides.length), INTERVAL);
+		}
+
+		// Reflects the persistent stop state (explicit pause, or reduced
+		// motion) on the pause button and the slides' aria-live politeness.
+		// Transient hover/focus stops deliberately do NOT flip aria-live to
+		// "polite" — only a stop that will not self-resume should announce
+		// itself, otherwise a sighted user's cursor crossing the carousel
+		// would spam screen readers with "polite" region churn.
+		function syncPersistentState() {
+			const stopped = paused || reducedMotion.matches;
+			liveRegion?.setAttribute('aria-live', stopped ? 'polite' : 'off');
+			if (pauseButton) {
+				pauseButton.setAttribute('aria-label', stopped ? 'Resume automatic rotation' : 'Pause automatic rotation');
+				pauseIcon?.classList.toggle('hidden', stopped);
+				playIcon?.classList.toggle('hidden', !stopped);
+			}
 		}
 
 		dots.forEach((dot, i) =>
@@ -105,6 +151,12 @@ const { keynotes } = Astro.props;
 				maybeStart();
 			}),
 		);
+		pauseButton?.addEventListener('click', () => {
+			paused = !paused;
+			if (paused) stop();
+			else maybeStart();
+			syncPersistentState();
+		});
 		carousel.addEventListener('mouseenter', () => {
 			hovered = true;
 			stop();
@@ -130,8 +182,10 @@ const { keynotes } = Astro.props;
 		reducedMotion.addEventListener('change', () => {
 			if (reducedMotion.matches) stop();
 			else maybeStart();
+			syncPersistentState();
 		});
 
+		syncPersistentState();
 		maybeStart();
 	}
 </script>
