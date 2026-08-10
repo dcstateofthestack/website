@@ -6,12 +6,9 @@ import Footer from '../components/Footer.astro';
 import KeynoteCarousel from '../components/KeynoteCarousel.astro';
 import "../styles/global.css";
 import logo from '../assets/logo-landscape.png';
-import { getCollection } from 'astro:content';
+import { getKeynotes } from '../lib/keynotes';
 
-const speakers = await getCollection('speakers');
-const keynotes = speakers
-	.filter((s) => s.data.keynote)
-	.sort((a, b) => a.id.localeCompare(b.id));
+const keynotes = await getKeynotes();
 ---
 
 <Layout>
