@@ -1,0 +1,21 @@
+scripts/generate-speaker-cards.mjs
+  s_13dd7cbeed7f01::t_672ef8e90b5749 15-17
+  s_13dd7cbeed7f01::t_955d190e5447f9 85-86,88-91,93,98-103
+  s_13dd7cbeed7f01::t_a1d432c5f86aec 31-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "1f23c00e3a373ddd7403399aa38bfd7b5ac7b5ff",
+  "prompts": {},
+  "sessions": {
+    "s_13dd7cbeed7f01": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "058224ca-e8a8-4e79-91f5-4e94ca68506f",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
