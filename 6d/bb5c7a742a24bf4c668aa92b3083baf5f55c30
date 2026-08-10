@@ -1,0 +1,24 @@
+package.json
+  s_13dd7cbeed7f01::t_a15bdb3b8c8207 22-25
+  s_13dd7cbeed7f01::t_64cd8c98e5ced1 9-10
+.gitignore
+  s_13dd7cbeed7f01::t_f6078adcfdfea1 31-33
+package-lock.json
+  s_13dd7cbeed7f01::t_174f6992fbe559 20-23,14680-14726,17787-17789
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "6dbb5c7a742a24bf4c668aa92b3083baf5f55c30",
+  "prompts": {},
+  "sessions": {
+    "s_13dd7cbeed7f01": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "058224ca-e8a8-4e79-91f5-4e94ca68506f",
+        "model": "claude-fable-5"
+      },
+      "human_author": "David Hodge <dave@proteanfalcon.com>"
+    }
+  }
+}
