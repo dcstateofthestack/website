@@ -128,19 +128,25 @@ const { keynotes } = Astro.props;
 			timer = window.setInterval(() => show((current + 1) % slides.length), INTERVAL);
 		}
 
-		// Reflects the persistent stop state (explicit pause, or reduced
-		// motion) on the pause button and the slides' aria-live politeness.
+		// The pause button reflects `paused` ALONE, never `reducedMotion`, so
+		// every click gives visible feedback and the flag can't silently
+		// drift out of sync with what the button shows (if it also reacted
+		// to reduced-motion, clicking while reduced motion is on would look
+		// like a no-op, and a stale `paused` could permanently block
+		// rotation after reduced motion is turned back off). aria-live is
+		// broader: it goes "polite" for ANY persistent stop (explicit pause
+		// or reduced motion) since both mean rotation will not self-resume.
 		// Transient hover/focus stops deliberately do NOT flip aria-live to
 		// "polite" — only a stop that will not self-resume should announce
 		// itself, otherwise a sighted user's cursor crossing the carousel
 		// would spam screen readers with "polite" region churn.
 		function syncPersistentState() {
-			const stopped = paused || reducedMotion.matches;
-			liveRegion?.setAttribute('aria-live', stopped ? 'polite' : 'off');
+			const liveStopped = paused || reducedMotion.matches;
+			liveRegion?.setAttribute('aria-live', liveStopped ? 'polite' : 'off');
 			if (pauseButton) {
-				pauseButton.setAttribute('aria-label', stopped ? 'Resume automatic rotation' : 'Pause automatic rotation');
-				pauseIcon?.classList.toggle('hidden', stopped);
-				playIcon?.classList.toggle('hidden', !stopped);
+				pauseButton.setAttribute('aria-label', paused ? 'Resume automatic rotation' : 'Pause automatic rotation');
+				pauseIcon?.classList.toggle('hidden', paused);
+				playIcon?.classList.toggle('hidden', !paused);
 			}
 		}
 
