@@ -1,0 +1,16 @@
+name: Noble Ackerson
+title: Senior Director of AI and Agentic Solutions, Leidos
+bio: >-
+  Noble Ackerson is Senior Director of AI and Agentic Solutions at Leidos,
+  where he builds and ships production agent systems for federal and
+  enterprise customers. <br><br>He is a Google Developer Expert for Cloud
+  AI/ML, an instructor for the Google Cloud Agent Engineering Nanodegree, and
+  the author of rai-checklist-cli, an open source tool for responsible AI
+  compliance. <br><br>His work focuses on evaluation, governance, and the
+  practical question of how to trust a system you cannot fully specify.
+  <br><br>He last spoke at this conference in 2023, arguing that putting
+  generative AI into production would mean wrapping it in more complexity than
+  anyone wanted to admit.
+talkName: 'Shipping Software When Half Your Stack Is Probabilistic'
+photo: /src/assets/speakers/noble-ackerson/photo.jpg
+keynote: true
