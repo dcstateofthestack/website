@@ -32,7 +32,7 @@ const { keynotes } = Astro.props;
 						i === 0 ? '' : 'opacity-0 pointer-events-none',
 					]}
 				>
-					<p class="text-pink font-bold text-xs uppercase tracking-[0.2em] mb-5">Keynote</p>
+					<p class="text-pink font-bold text-xs uppercase tracking-[0.2em] mb-5">Featured Keynote</p>
 					<div class="flex flex-col sm:flex-row gap-6 items-start">
 						{keynote.data.photo && (
 							<img
@@ -48,7 +48,14 @@ const { keynotes } = Astro.props;
 							<p class="text-teal text-sm font-medium mb-3">{keynote.data.title}</p>
 							<p class="text-navy font-semibold mb-3">"{keynote.data.talkName}"</p>
 							{/* Renders raw HTML from the speaker's bio field in the content collection YAML. */}
-							<p class="text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
+							<p id={`keynote-bio-${i}`} data-bio class="line-clamp-4 text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
+							<button
+								type="button"
+								data-bio-toggle
+								aria-expanded="false"
+								aria-controls={`keynote-bio-${i}`}
+								class="hidden mt-2 text-teal text-sm font-medium underline hover:text-teal/80"
+							>Read more</button>
 						</div>
 					</div>
 				</div>
@@ -95,24 +102,93 @@ const { keynotes } = Astro.props;
 	const pauseIcon = pauseButton?.querySelector<HTMLElement>('[data-icon-pause]') ?? null;
 	const playIcon = pauseButton?.querySelector<HTMLElement>('[data-icon-play]') ?? null;
 
+	let current = 0;
+
+	// Slides self-start instead of stretching, so a short bio leaves no
+	// white space inside its card; the wrapper's height follows the
+	// active slide (animated alongside the crossfade, clipping the
+	// taller invisible slides via overflow-hidden). With a single slide
+	// the wrapper auto-sizes, so no explicit height is needed.
+	function setHeight() {
+		if (liveRegion && slides.length > 1) liveRegion.style.height = `${slides[current].offsetHeight}px`;
+	}
+
+	// Bios are clamped to a fixed number of lines so every card renders at
+	// a near-uniform height; a Read more toggle reveals the full text.
+	function bioParts(slide: HTMLElement) {
+		return {
+			bio: slide.querySelector<HTMLElement>('[data-bio]'),
+			toggle: slide.querySelector<HTMLButtonElement>('[data-bio-toggle]'),
+		};
+	}
+
+	function collapseBio(slide: HTMLElement) {
+		const { bio, toggle } = bioParts(slide);
+		if (!bio || !toggle) return;
+		bio.classList.add('line-clamp-4');
+		toggle.setAttribute('aria-expanded', 'false');
+		toggle.textContent = 'Read more';
+	}
+
+	// Equalize all cards to the tallest clamped slide via min-height, so the
+	// wrapper (and everything below it) never moves as the carousel rotates —
+	// small differences like a two-line title would otherwise shift layout.
+	// An expanded slide is excluded from the measurement (its natural height
+	// is inflated) but still receives the shared min-height, which it already
+	// exceeds. Only the active slide can be expanded, so whenever the active
+	// slide is clamped the measurement covers every slide.
+	function syncCardHeights() {
+		if (slides.length > 1) {
+			for (const slide of slides) slide.style.minHeight = '';
+			const max = Math.max(
+				...slides
+					.filter((s) => bioParts(s).toggle?.getAttribute('aria-expanded') !== 'true')
+					.map((s) => s.offsetHeight),
+			);
+			for (const slide of slides) slide.style.minHeight = `${max}px`;
+		}
+		setHeight();
+	}
+
+	// Show each toggle only when its clamped bio actually overflows, so a
+	// short bio gets no dead button. Expanded bios are skipped: they never
+	// overflow, and hiding their toggle would strand them open.
+	function syncToggleVisibility() {
+		for (const slide of slides) {
+			const { bio, toggle } = bioParts(slide);
+			if (!bio || !toggle || toggle.getAttribute('aria-expanded') === 'true') continue;
+			toggle.classList.toggle('hidden', bio.scrollHeight <= bio.clientHeight + 1);
+		}
+	}
+
+	for (const slide of slides) {
+		const { bio, toggle } = bioParts(slide);
+		if (!bio || !toggle) continue;
+		toggle.addEventListener('click', () => {
+			const expanded = toggle.getAttribute('aria-expanded') === 'true';
+			bio.classList.toggle('line-clamp-4', expanded);
+			toggle.setAttribute('aria-expanded', String(!expanded));
+			toggle.textContent = expanded ? 'Read more' : 'Show less';
+			setHeight();
+		});
+	}
+
+	if (carousel && slides.length > 0) {
+		window.addEventListener('resize', syncToggleVisibility);
+		window.addEventListener('load', syncToggleVisibility);
+		syncToggleVisibility();
+	}
+
 	if (carousel && slides.length > 1) {
 		const INTERVAL = 6000;
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-		let current = 0;
 		let timer: number | undefined;
 		let hovered = false;
 		let focused = false;
 		let paused = false;
 
-		// Slides self-start instead of stretching, so a short bio leaves no
-		// white space inside its card; the wrapper's height follows the
-		// active slide (animated alongside the crossfade, clipping the
-		// taller invisible slides via overflow-hidden).
-		function setHeight() {
-			if (liveRegion) liveRegion.style.height = `${slides[current].offsetHeight}px`;
-		}
-
 		function show(i: number) {
+			collapseBio(slides[current]);
 			slides[current].classList.add('opacity-0', 'pointer-events-none');
 			slides[current].setAttribute('aria-hidden', 'true');
 			slides[current].inert = true;
@@ -200,11 +276,11 @@ const { keynotes } = Astro.props;
 			syncPersistentState();
 		});
 
-		window.addEventListener('resize', setHeight);
-		window.addEventListener('load', setHeight);
+		window.addEventListener('resize', syncCardHeights);
+		window.addEventListener('load', syncCardHeights);
 
 		syncPersistentState();
-		setHeight();
+		syncCardHeights();
 		maybeStart();
 	}
 </script>
