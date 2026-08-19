@@ -1,0 +1,32 @@
+---
+interface Props {
+	class?: string;
+	cta?: boolean;
+}
+
+const { class: className = 'max-w-4xl mb-12', cta = true } = Astro.props;
+---
+
+<!-- Free Hyperadaptive book with registration -->
+<div class:list={['mx-auto w-full', className]}>
+	<div class="bg-teal/10 border border-teal/30 rounded-xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+		<svg class="w-10 h-10 shrink-0 text-teal" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d="M12 5.5C10.6 4 8.4 3 5.75 3c-1.3 0-2.55.24-3.75.7v14.8c1.2-.46 2.45-.7 3.75-.7 2.65 0 4.85 1 6.25 2.5 1.4-1.5 3.6-2.5 6.25-2.5 1.3 0 2.55.24 3.75.7V3.7c-1.2-.46-2.45-.7-3.75-.7C15.6 3 13.4 4 12 5.5zm0 2.4c1.1-1.2 2.75-2.4 6.25-2.4.6 0 1.18.06 1.75.17v11.1a11.6 11.6 0 0 0-1.75-.27c-2.65 0-4.85.62-6.25 1.7-1.4-1.08-3.6-1.7-6.25-1.7-.59.04-1.17.13-1.75.27V5.67c.57-.11 1.15-.17 1.75-.17 3.5 0 5.15 1.2 6.25 2.4z" />
+		</svg>
+		<div class="flex-1">
+			<p class="text-pink font-bold text-xs uppercase tracking-wider mb-1">Free with registration</p>
+			<h2 class="text-lg font-bold text-navy mb-1">Take home <em>Hyperadaptive</em></h2>
+			<p class="text-gray-700 text-sm leading-relaxed">
+				Every registered attendee receives a free printed copy of <em>Hyperadaptive: Rewiring the Enterprise to Become AI-Native</em> by featured keynote speaker Melissa M. Reeve. Pick up your copy at the event &mdash; Melissa will be signing books during the Day&nbsp;2 lunch break, after her keynote.
+			</p>
+		</div>
+		{cta && (
+			<a
+				href="/registration"
+				class="shrink-0 bg-teal text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-teal/80 transition-colors"
+			>
+				Register now &rarr;
+			</a>
+		)}
+	</div>
+</div>

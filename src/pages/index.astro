@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import KeynoteCarousel from '../components/KeynoteCarousel.astro';
+import BookGiveawayCTA from '../components/BookGiveawayCTA.astro';
 import "../styles/global.css";
 import logo from '../assets/logo-landscape.png';
 import { getKeynotes } from '../lib/keynotes';
@@ -65,6 +66,9 @@ const keynotes = await getKeynotes();
 
 			<!-- Keynotes -->
 			<KeynoteCarousel keynotes={keynotes} />
+
+			<!-- Free book with registration -->
+			<BookGiveawayCTA class="max-w-2xl mb-10" cta={false} />
 
 			<!-- Registration Banner -->
 			<div class="bg-pink/10 border border-pink/30 rounded-2xl px-6 py-5 max-w-2xl mx-auto mb-4 text-left">
