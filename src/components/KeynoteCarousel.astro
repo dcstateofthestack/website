@@ -63,15 +63,17 @@ const { keynotes } = Astro.props;
 		</div>
 		{keynotes.length > 1 && (
 			<div class="flex items-center justify-center gap-3 mt-4">
-				<div class="flex gap-2">
+				<div class="flex gap-0">
 					{keynotes.map((keynote, i) => (
 						<button
 							type="button"
 							data-dot={i}
 							aria-label={`Show ${keynote.data.name}`}
 							aria-current={i === 0 ? 'true' : undefined}
-							class="w-2.5 h-2.5 rounded-full transition-colors bg-gray-300 hover:bg-gray-400 aria-[current=true]:bg-pink"
-						></button>
+							class="group w-6 h-6 flex items-center justify-center rounded-full"
+						>
+							<span class="w-2.5 h-2.5 rounded-full transition-colors bg-gray-300 group-hover:bg-gray-400 group-aria-[current=true]:bg-pink"></span>
+						</button>
 					))}
 				</div>
 				<button
@@ -122,12 +124,28 @@ const { keynotes } = Astro.props;
 		};
 	}
 
+	// line-clamp only hides overflow visually: links below the clip would
+	// otherwise stay keyboard-focusable while invisible (and focusing them
+	// makes the browser fight the clip). Take anchors that sit below the
+	// clamped bio's visible box out of the tab order until expansion.
+	function syncBioLinkFocus(slide: HTMLElement) {
+		const { bio } = bioParts(slide);
+		if (!bio) return;
+		const clamped = bio.classList.contains('line-clamp-4');
+		const visibleBottom = bio.getBoundingClientRect().bottom;
+		for (const a of bio.querySelectorAll('a')) {
+			if (clamped && a.getBoundingClientRect().bottom > visibleBottom + 1) a.tabIndex = -1;
+			else a.removeAttribute('tabindex');
+		}
+	}
+
 	function collapseBio(slide: HTMLElement) {
 		const { bio, toggle } = bioParts(slide);
 		if (!bio || !toggle) return;
 		bio.classList.add('line-clamp-4');
 		toggle.setAttribute('aria-expanded', 'false');
 		toggle.textContent = 'Read more';
+		syncBioLinkFocus(slide);
 	}
 
 	// Equalize all cards to the tallest clamped slide via min-height, so the
@@ -155,6 +173,7 @@ const { keynotes } = Astro.props;
 	// overflow, and hiding their toggle would strand them open.
 	function syncToggleVisibility() {
 		for (const slide of slides) {
+			syncBioLinkFocus(slide);
 			const { bio, toggle } = bioParts(slide);
 			if (!bio || !toggle || toggle.getAttribute('aria-expanded') === 'true') continue;
 			toggle.classList.toggle('hidden', bio.scrollHeight <= bio.clientHeight + 1);
@@ -169,6 +188,7 @@ const { keynotes } = Astro.props;
 			bio.classList.toggle('line-clamp-4', expanded);
 			toggle.setAttribute('aria-expanded', String(!expanded));
 			toggle.textContent = expanded ? 'Read more' : 'Show less';
+			syncBioLinkFocus(slide);
 			setHeight();
 		});
 	}
