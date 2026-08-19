@@ -18,6 +18,10 @@ export default config({
           publicPath: '/src/assets/speakers/',
         }),
         keynote: fields.checkbox({ label: 'Keynote', defaultValue: false }),
+        order: fields.integer({
+          label: 'Order',
+          description: 'Carousel position for keynotes — lower numbers first; speakers without one come last, alphabetically.',
+        }),
       },
     }),
     sponsors: collection({

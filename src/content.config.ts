@@ -11,6 +11,7 @@ const speakers = defineCollection({
       talkName: z.string(),
       photo: image().optional(),
       keynote: z.boolean().optional(),
+      order: z.number().optional(),
     }),
 });
 

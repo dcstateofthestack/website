@@ -3,12 +3,12 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import KeynoteCarousel from '../components/KeynoteCarousel.astro';
 import "../styles/global.css";
 import logo from '../assets/logo-landscape.png';
-import { getCollection } from 'astro:content';
+import { getKeynotes } from '../lib/keynotes';
 
-const speakers = await getCollection('speakers');
-const keynote = speakers.find((s) => s.data.keynote);
+const keynotes = await getKeynotes();
 ---
 
 <Layout>
@@ -63,23 +63,8 @@ const keynote = speakers.find((s) => s.data.keynote);
 				</p>
 			</div>
 
-			{keynote && (
-				<!-- Keynote -->
-				<div class="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 text-left shadow-sm">
-					<p class="text-pink font-bold text-xs uppercase tracking-[0.2em] mb-5">Keynote</p>
-					<div class="flex flex-col sm:flex-row gap-6 items-start">
-						{keynote.data.photo && (
-							<img src={keynote.data.photo.src} alt={keynote.data.name} class="w-32 h-32 rounded-full object-cover flex-shrink-0 mx-auto sm:mx-0" />
-						)}
-						<div class="flex-1">
-							<h3 class="text-2xl font-bold text-navy mb-1">{keynote.data.name}</h3>
-							<p class="text-teal text-sm font-medium mb-3">{keynote.data.title}</p>
-							<p class="text-navy font-semibold mb-3">"{keynote.data.talkName}"</p>
-							<p class="text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
-						</div>
-					</div>
-				</div>
-			)}
+			<!-- Keynotes -->
+			<KeynoteCarousel keynotes={keynotes} />
 
 			<!-- Registration Banner -->
 			<div class="bg-pink/10 border border-pink/30 rounded-2xl px-6 py-5 max-w-2xl mx-auto mb-4 text-left">
