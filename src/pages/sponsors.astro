@@ -174,10 +174,10 @@ const tierBenefits = [
 						{ name: 'Lanyard Sponsor', count: 1, price: '$4,500', desc: 'Your logo on every attendee\'s lanyard for two days — worn by engineers, operators, and leaders from across the DC tech community. Single color logo. Final placement, size, and color subject to organizer approval.' },
 						{ name: 'Closed Captioning Sponsor', count: 1, price: '$4,500', desc: 'We believe every attendee deserves to follow the conversation. Your logo appears on screen as talks are transcribed live — visible to everyone in the room, both days.' },
 					].map(({ name, count, price, desc }) => (
-						<div class="bg-pink/20 rounded-2xl p-6 border border-pink/30">
+						<div class="bg-pink/10 rounded-2xl p-6 border border-pink/30">
 							<div class="flex justify-between items-start mb-3 pb-3 border-b border-pink/40">
 								<h3 class="font-bold text-navy text-lg">{name}{count ? ` (${count})` : ''}</h3>
-								<span class="text-pink font-bold text-lg">{price}</span>
+								<span class="text-pink-dark font-bold text-lg">{price}</span>
 							</div>
 							<p class="text-gray-700 text-sm">{desc}</p>
 						</div>
@@ -197,10 +197,10 @@ const tierBenefits = [
 						{ name: 'Lunch', count: 1, price: '$6,000', desc: 'Signage with your logo at the lunch tables both days. Lunch is one of the most natural networking moments at the conference — unhurried, conversational, and shared. Your brand is part of that.' },
 						{ name: 'Break', count: 1, price: '$3,000', desc: 'Signage with your logo at the break tables during morning and afternoon breaks both days. Breaks are when the "hallway track" conversations happen — between sessions, away from the slides, over coffee.' },
 					].map(({ name, count, price, desc }) => (
-						<div class="bg-pink/20 rounded-2xl p-6 border border-pink/30">
+						<div class="bg-pink/10 rounded-2xl p-6 border border-pink/30">
 							<div class="flex justify-between items-start mb-3 pb-3 border-b border-pink/40">
 								<h3 class="font-bold text-navy text-lg">{name} ({count})</h3>
-								<span class="text-pink font-bold text-lg">{price}</span>
+								<span class="text-pink-dark font-bold text-lg">{price}</span>
 							</div>
 							<p class="text-gray-700 text-sm">{desc}</p>
 						</div>
@@ -218,19 +218,19 @@ const tierBenefits = [
 					<p class="text-gray-300 mb-4">We extend community sponsorships to regional conferences, media, and meetups that share our mission — building a stronger, more connected tech community across DC, Maryland, and Virginia.</p>
 					<p class="font-semibold text-gray-200 mb-3">Community sponsors must be:</p>
 					<ul class="space-y-2 text-gray-300 text-sm mb-4">
-						<li class="flex gap-2"><span class="text-teal">•</span> Aligned with our mission to grow the DC tech community</li>
-						<li class="flex gap-2"><span class="text-teal">•</span> Willing to help promote DC State of the Stack in kind</li>
-						<li class="flex gap-2"><span class="text-teal">•</span> Willing to adhere to our code of conduct</li>
+						<li class="flex gap-2"><span class="text-light-pink">•</span> Aligned with our mission to grow the DC tech community</li>
+						<li class="flex gap-2"><span class="text-light-pink">•</span> Willing to help promote DC State of the Stack in kind</li>
+						<li class="flex gap-2"><span class="text-light-pink">•</span> Willing to adhere to our code of conduct</li>
 					</ul>
 					<p class="text-gray-400 italic text-sm">This isn't a transactional relationship — it's a seat at the table for organizations that share our values.</p>
 				</div>
 				<div class="bg-white/10 rounded-2xl p-8 border border-white/20">
 					<h3 class="font-bold text-light-pink uppercase tracking-widest text-sm mb-4">What's Included</h3>
 					<ul class="space-y-3 text-gray-200">
-						<li class="flex gap-2"><span class="text-teal">✓</span> 1 event ticket</li>
-						<li class="flex gap-2"><span class="text-teal">✓</span> Main stage thank you</li>
-						<li class="flex gap-2"><span class="text-teal">✓</span> Social media thank you</li>
-						<li class="flex gap-2"><span class="text-teal">✓</span> Logo on the website</li>
+						<li class="flex gap-2"><span class="text-light-pink">✓</span> 1 event ticket</li>
+						<li class="flex gap-2"><span class="text-light-pink">✓</span> Main stage thank you</li>
+						<li class="flex gap-2"><span class="text-light-pink">✓</span> Social media thank you</li>
+						<li class="flex gap-2"><span class="text-light-pink">✓</span> Logo on the website</li>
 					</ul>
 				</div>
 			</div>
