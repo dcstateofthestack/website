@@ -2,8 +2,14 @@
 
 @theme {
 	--color-navy: #1a2744;
-	--color-teal: #167D72;
-	--color-pink: #d4508b;
+	/* teal/pink are tuned so normal-size text passes WCAG 4.5:1 both ways
+	   (token on white or tinted /10 cards, and white on token) — check
+	   contrast before lightening either one. *-dark are the hover shades:
+	   hovers must darken, never alpha-lighten, or they drop below 4.5:1. */
+	--color-teal: #136e64;
+	--color-teal-dark: #0d5049;
+	--color-pink: #bd3370;
+	--color-pink-dark: #a52c62;
 	--color-light-pink: #f0a0c0;
 }
 

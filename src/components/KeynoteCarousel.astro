@@ -48,13 +48,13 @@ const { keynotes } = Astro.props;
 							<p class="text-teal text-sm font-medium mb-3">{keynote.data.title}</p>
 							<p class="text-navy font-semibold mb-3">"{keynote.data.talkName}"</p>
 							{/* Renders raw HTML from the speaker's bio field in the content collection YAML. */}
-							<p id={`keynote-bio-${i}`} data-bio class="line-clamp-4 text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal/80" set:html={keynote.data.bio}></p>
+							<p id={`keynote-bio-${i}`} data-bio class="line-clamp-4 text-gray-600 text-sm leading-relaxed [&_a]:text-teal [&_a]:underline hover:[&_a]:text-teal-dark" set:html={keynote.data.bio}></p>
 							<button
 								type="button"
 								data-bio-toggle
 								aria-expanded="false"
 								aria-controls={`keynote-bio-${i}`}
-								class="hidden mt-2 text-teal text-sm font-medium underline hover:text-teal/80"
+								class="hidden mt-2 text-teal text-sm font-medium underline hover:text-teal-dark"
 							>Read more</button>
 						</div>
 					</div>
