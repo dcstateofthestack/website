@@ -29,7 +29,7 @@ const links = [
 				<li>
 					<a
 						href={link.href}
-						class={currentPage === link.href ? 'text-light-pink' : 'hover:text-light-pink transition-colors'}
+						class={currentPage === link.href ? 'underline decoration-light-pink decoration-2 underline-offset-4' : 'hover:underline hover:decoration-light-pink hover:decoration-2 hover:underline-offset-4'}
 					>
 						{link.label}
 					</a>
@@ -42,7 +42,7 @@ const links = [
 			<li>
 				<a
 					href={link.href}
-					class={`block py-1 ${currentPage === link.href ? 'text-light-pink' : 'hover:text-light-pink transition-colors'}`}
+					class={`block py-1 ${currentPage === link.href ? 'underline decoration-light-pink decoration-2 underline-offset-4' : 'hover:underline hover:decoration-light-pink hover:decoration-2 hover:underline-offset-4'}`}
 				>
 					{link.label}
 				</a>
